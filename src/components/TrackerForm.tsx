@@ -5,9 +5,20 @@ import { Check, X, ImagePlus } from "lucide-react";
 import { addTracker } from "@/lib/actions";
 import { Field } from "@/components/atoms";
 import { resizeImageFile } from "@/lib/image";
+import { ASCENT_ACTIONS, type AscentCategory } from "@/lib/ascent";
 import type { Tracker } from "@/types/tracking";
 
-export default function TrackerForm({ subcategoryId, onCreated, onDone }: { subcategoryId: string; onCreated: (tracker: Tracker) => void; onDone: () => void }) {
+export default function TrackerForm({
+  subcategoryId,
+  ascentCategory,
+  onCreated,
+  onDone,
+}: {
+  subcategoryId: string;
+  ascentCategory?: string | null;
+  onCreated: (tracker: Tracker) => void;
+  onDone: () => void;
+}) {
   const [name, setName] = useState("");
   const [unit, setUnit] = useState("min");
   const [dailyGoal, setDailyGoal] = useState("30");
@@ -47,8 +58,36 @@ export default function TrackerForm({ subcategoryId, onCreated, onDone }: { subc
     onDone();
   };
 
+  const actions = ascentCategory ? ASCENT_ACTIONS[ascentCategory as AscentCategory] : undefined;
+  const [pickedAction, setPickedAction] = useState<string | null>(null);
+
+  const pickAction = (a: { name: string; unit: string; dailyGoal: number; points: number }) => {
+    setName(a.name);
+    setUnit(a.unit);
+    setDailyGoal(String(a.dailyGoal));
+    setAscentPoints(String(a.points));
+    setPickedAction(a.name);
+  };
+
   return (
     <div className="card form-card">
+      {actions && actions.length > 0 && (
+        <div className="mb-16">
+          <div className="field-label">Quick pick ({ascentCategory})</div>
+          <div className="icon-pick-row">
+            {actions.map((a) => (
+              <button
+                key={a.name}
+                type="button"
+                className={`action-chip ${pickedAction === a.name ? "action-chip-active" : ""}`}
+                onClick={() => pickAction(a)}
+              >
+                {a.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
       <div className="form-grid">
         <Field label="Name">
           <input className="input" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Atomic Habits" />

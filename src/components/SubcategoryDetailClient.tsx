@@ -78,7 +78,7 @@ export default function SubcategoryDetailClient({
       </div>
 
       {showForm ? (
-        <TrackerForm subcategoryId={subcat.id} onCreated={handleCreated} onDone={() => setShowForm(false)} />
+        <TrackerForm subcategoryId={subcat.id} ascentCategory={subcat.ascent_category} onCreated={handleCreated} onDone={() => setShowForm(false)} />
       ) : (
         <button className="btn btn-accent" onClick={() => setShowForm(true)}>
           <Plus size={14} /> Add tracker
