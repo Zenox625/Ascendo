@@ -5,8 +5,9 @@ import { Check, X, ImagePlus } from "lucide-react";
 import { addTracker } from "@/lib/actions";
 import { Field } from "@/components/atoms";
 import { resizeImageFile } from "@/lib/image";
+import type { Tracker } from "@/types/tracking";
 
-export default function TrackerForm({ subcategoryId, onDone }: { subcategoryId: string; onDone: () => void }) {
+export default function TrackerForm({ subcategoryId, onCreated, onDone }: { subcategoryId: string; onCreated: (tracker: Tracker) => void; onDone: () => void }) {
   const [name, setName] = useState("");
   const [unit, setUnit] = useState("min");
   const [dailyGoal, setDailyGoal] = useState("30");
@@ -32,7 +33,7 @@ export default function TrackerForm({ subcategoryId, onDone }: { subcategoryId: 
   const submit = async () => {
     if (!name.trim()) return;
     setSaving(true);
-    await addTracker(
+    const created = await addTracker(
       subcategoryId,
       name.trim(),
       unit.trim() || "x",
@@ -42,6 +43,7 @@ export default function TrackerForm({ subcategoryId, onDone }: { subcategoryId: 
       Number(ascentPoints) || 10
     );
     setSaving(false);
+    onCreated(created as Tracker);
     onDone();
   };
 

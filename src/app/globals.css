@@ -1,8 +1,8 @@
 :root {
-  --bg: #0D0E11; --surface: #17181C; --surface-2: #1E2024;
-  --border: #292B31; --border-strong: #3A3D44;
-  --text: #F3F2ED; --text-muted: #8D8F97; --text-faint: #6E7078;
-  --accent: #5B8DEF; --accent-soft: rgba(91,141,239,0.14);
+  --bg: #0E1524; --surface: #161F33; --surface-2: #1E2A42;
+  --border: #2A3750; --border-strong: #3D4E6B;
+  --text: #F0EDE4; --text-muted: #8D96A8; --text-faint: #6B7488;
+  --accent: #E8A857; --accent-soft: rgba(232,168,87,0.16);
   --danger: #E2703A; --radius: 12px;
 }
 
@@ -158,7 +158,7 @@ input:focus-visible, select:focus-visible, button:focus-visible, [contenteditabl
 .mini-player-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .mini-player-artist { font-size: 11.5px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.intro-overlay { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg); }
+.intro-overlay { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(rgba(9,13,22,.55), rgba(9,13,22,.7)), url('/intro-bg.jpg') center/cover no-repeat; }
 .intro-ascent-btn { font-family: Georgia, "Times New Roman", serif; font-size: 30px; font-weight: 600; letter-spacing: -0.01em; background: transparent; border: 1px solid var(--border-strong); color: var(--text); padding: 18px 48px; border-radius: 100px; cursor: pointer; animation: introFadeScaleIn .5s cubic-bezier(.22,1,.36,1) both; transition: border-color .2s ease, transform .2s ease, background .2s ease; }
 .intro-ascent-btn:hover { border-color: var(--accent); background: var(--accent-soft); transform: scale(1.03); }
 .intro-ascent-exit { animation: introFadeScaleOut .38s cubic-bezier(.4,0,1,1) both; }

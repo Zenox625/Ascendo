@@ -37,19 +37,25 @@ export async function addTracker(
   image: string | null,
   ascentPoints: number
 ) {
-  const { error } = await supabaseAdmin().from("trackers").insert({
-    id: uid(),
-    subcategory_id: subcategoryId,
-    name,
-    unit,
-    daily_goal: dailyGoal,
-    long_term_goal: longTermGoal,
-    image,
-    ascent_points: ascentPoints,
-  });
+  const id = uid();
+  const { data, error } = await supabaseAdmin()
+    .from("trackers")
+    .insert({
+      id,
+      subcategory_id: subcategoryId,
+      name,
+      unit,
+      daily_goal: dailyGoal,
+      long_term_goal: longTermGoal,
+      image,
+      ascent_points: ascentPoints,
+    })
+    .select()
+    .single();
   if (error) throw error;
   revalidatePath(`/daily/${subcategoryId}`);
   revalidatePath(`/longterm/${subcategoryId}`);
+  return data;
 }
 
 export async function deleteTracker(id: string, subcategoryId: string) {

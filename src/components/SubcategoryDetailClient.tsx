@@ -29,6 +29,9 @@ export default function SubcategoryDetailClient({
 }) {
   const [showForm, setShowForm] = useState(false);
   const [, startTransition] = useTransition();
+  const [trackerList, setTrackerList] = useState(trackers);
+
+  const handleCreated = (tracker: Tracker) => setTrackerList((prev) => [...prev, tracker]);
 
   return (
     <div>
@@ -59,14 +62,14 @@ export default function SubcategoryDetailClient({
       </div>
 
       <div className="tracker-list mb-16">
-        {trackers.map((tr) =>
+        {trackerList.map((tr) =>
           mode === "daily" ? (
             <DailyTrackerRow key={tr.id} tracker={tr} value={valuesByTracker[tr.id] ?? 0} color={subcat.color} date={date!} />
           ) : (
             <LongTermTrackerRow key={tr.id} tracker={tr} total={valuesByTracker[tr.id] ?? 0} color={subcat.color} />
           )
         )}
-        {trackers.length === 0 && !showForm && (
+        {trackerList.length === 0 && !showForm && (
           <EmptyState
             title={mode === "daily" ? "Nothing to track here yet" : "Nothing here yet"}
             sub={mode === "daily" ? "Add a tracker to fill in today's progress." : "Trackers you add will show their overall progress here."}
@@ -75,7 +78,7 @@ export default function SubcategoryDetailClient({
       </div>
 
       {showForm ? (
-        <TrackerForm subcategoryId={subcat.id} onDone={() => setShowForm(false)} />
+        <TrackerForm subcategoryId={subcat.id} onCreated={handleCreated} onDone={() => setShowForm(false)} />
       ) : (
         <button className="btn btn-accent" onClick={() => setShowForm(true)}>
           <Plus size={14} /> Add tracker
