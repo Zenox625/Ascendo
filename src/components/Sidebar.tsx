@@ -5,11 +5,12 @@ import { usePathname } from "next/navigation";
 import { Sun, TrendingUp, Calendar, FileText, Settings, UserCircle } from "lucide-react";
 
 const ITEMS = [
-  { href: "/daily", icon: Sun, label: "Daily goals" },
-  { href: "/longterm", icon: TrendingUp, label: "Long-term goals" },
+  { href: "/daily", icon: Sun, label: "Daily" },
+  { href: "/longterm", icon: TrendingUp, label: "Long-term" },
   { href: "/calendar", icon: Calendar, label: "Calendar" },
   { href: "/notes", icon: FileText, label: "Notes" },
   { href: "/profil", icon: UserCircle, label: "Profil" },
+  { href: "/settings", icon: Settings, label: "Settings" },
 ];
 
 export default function Sidebar() {
@@ -25,15 +26,11 @@ export default function Sidebar() {
           return (
             <Link key={it.href} href={it.href} className={`nav-item ${active ? "nav-active" : ""}`}>
               <Icon size={16} />
-              {it.label}
+              <span className="nav-label">{it.label}</span>
             </Link>
           );
         })}
       </div>
-      <Link href="/settings" className={`nav-item ${pathname.startsWith("/settings") ? "nav-active" : ""}`}>
-        <Settings size={16} />
-        Settings
-      </Link>
     </div>
   );
 }

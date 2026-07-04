@@ -152,6 +152,47 @@ input:focus-visible, select:focus-visible, button:focus-visible, [contenteditabl
 .action-chip { padding: 7px 12px; border-radius: 100px; font-size: 12px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text-muted); cursor: pointer; transition: all .15s ease; }
 .action-chip:hover { border-color: var(--border-strong); color: var(--text); }
 .action-chip-active { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+/* --- mobile: sidebar becomes a bottom tab bar, layout goes single-column --- */
+@media (max-width: 768px) {
+  .app-shell { flex-direction: column; }
+
+  .sidebar {
+    position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 30;
+    width: 100%; height: auto; flex-direction: row; align-items: stretch;
+    padding: 6px 2px calc(6px + env(safe-area-inset-bottom));
+    border-right: none; border-top: 1px solid var(--border);
+  }
+  .brand { display: none; }
+  .nav-list { flex-direction: row; flex: 1; gap: 0; }
+  .nav-item { flex: 1; flex-direction: column; gap: 3px; padding: 6px 2px; border-radius: 8px; font-size: 9.5px; text-align: center; }
+  .nav-item svg { margin: 0 auto; }
+  .nav-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+
+  .main-col { width: 100%; }
+  .content-scroll { padding: 18px 16px; max-width: 100%; }
+  .content-scroll-with-player { padding-bottom: 128px; }
+
+  .mini-player { left: 0; bottom: calc(54px + env(safe-area-inset-bottom)); height: 60px; padding: 0 14px; border-top: 1px solid var(--border); }
+
+  .grid-cards { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .icon-pick-row, .swatch-row { row-gap: 8px; }
+
+  .tracker-row { flex-wrap: wrap; }
+  .tracker-main { width: 100%; }
+  .tracker-side { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; margin-top: 8px; }
+  .add-row { order: 2; }
+  .pct-num { order: 1; }
+
+  .row-between.cover-title { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .ascent-category-select { width: 100%; }
+
+  .now-playing, .event-add-row { flex-wrap: wrap; }
+
+  .intro-tiles-grid { grid-template-columns: repeat(2, 1fr); max-width: 300px; }
+}
+
 .ascent-global-tier { font-size: 22px; font-weight: 600; }
 .ascent-global-score { font-size: 22px; font-weight: 600; font-family: ui-monospace, Menlo, monospace; }
 
